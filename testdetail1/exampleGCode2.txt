@@ -1,0 +1,23 @@
+( Square Routing Program with Tool T4 )
+( Anne Ruusmann, 03.05.2023 )
+
+T4 M06
+G21
+G90
+G17
+G40
+G49
+G80
+
+G00 Z5.0
+G00 X50 Y50
+G01 Z-3.0 F200
+
+G01 X150 Y50 F300
+G01 X150 Y150
+G01 X50 Y150
+G01 X50 Y50
+
+G00 Z5.0
+G00 X0 Y0
+M30
