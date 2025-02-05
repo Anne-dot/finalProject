@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tool Data Manager - Prototype</title>
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search {
+            border: 1px solid #eee;
+            padding: 15px;
+        }
+
+        .tool-data {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .field {
+            margin: 10px 0;
+        }
+
+        .number-input {
+            width: 150px;
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .search-results {
+            margin-top: 20px;
+            overflow: auto;
+        }
+
+        .search-results table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .search-results th,
+        .search-results td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+            white-space: nowrap;
+        }
+
+        .search-results tr:hover {
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+
+        .search-results th {
+            background-color: #f0f0f0;
+            position: sticky;
+            top: 0;
+        }
+
+        .pagination {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+        }
+
+        .current-page {
+            font-weight: bold;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="search">
+        <h3>Search Tools</h3>
+        <div class="search-grid">
+            <div>
+                <label>Tool Number:
+                    <input type="text" id="toolSearch" class="number-input" onkeyup="searchTool()">
+                </label>
+            </div>
+            <div>
+                <label>Tool Type:
+                    <select id="searchType" onchange="searchTool()">
+                        <option value="">Any</option>
+                        <option>VERT DRILL</option>
+                        <option>HOR DRILL</option>
+                        <option>MILL</option>
+                        <option>SAW</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label>Direction:
+                    <select id="searchDirection" onchange="searchTool()">
+                        <option value="">Any</option>
+                        <option value="1">X+ (1)</option>
+                        <option value="2">X- (2)</option>
+                        <option value="3">Y+ (3)</option>
+                        <option value="4">Y- (4)</option>
+                        <option value="5">Vertical (5)</option>
+                        <option value="6">Mill (6)</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <div class="search-results">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tool #</th>
+                        <th>Type</th>
+                        <th>Direction</th>
+                        <th>Description</th>
+                        <th>Length</th>
+                        <th>Diameter</th>
+                        <th>Length Wear</th>
+                        <th>Diameter Wear</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsTable">
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button onclick="previousPage()">Previous</button>
+                <span id="currentPage" class="current-page"></span>
+                <button onclick="nextPage()">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tool-data">
+        <h3>Tool Data</h3>
+        <div class="grid">
+            <div>
+                <h4>Standard Data (tools.dat)</h4>
+                <div class="field">
+                    <label>Description: <input type="text" id="description" class="description-field"></label>
+                </div>
+                <div class="field">
+                    <label>Length: <input type="text" id="length" class="number-input"></label>
+                </div>
+                <div class="field">
+                    <label>Diameter: <input type="text" id="diameter" class="number-input"></label>
+                </div>
+                <div class="field">
+                    <label>Length Wear: <input type="text" id="lengthWear" class="number-input"></label>
+                </div>
+                <div class="field">
+                    <label>Diameter Wear: <input type="text" id="diameterWear" class="number-input"></label>
+                </div>
+            </div>
+            <div>
+                <h4>Custom Data</h4>
+                <div class="field">
+                    <label>Tool Type:
+                        <select id="toolType">
+                            <option>VERT DRILL</option>
+                            <option>HOR DRILL</option>
+                            <option>MILL</option>
+                            <option>SAW</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="field">
+                    <label>Direction:
+                        <select id="direction">
+                            <option value="1">X+ (1)</option>
+                            <option value="2">X- (2)</option>
+                            <option value="3">Y+ (3)</option>
+                            <option value="4">Y- (4)</option>
+                            <option value="5">Vertical (5)</option>
+                            <option value="6">Mill (6)</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="field">
+                    <label>Notes:<br>
+                        <textarea id="notes" class="notes-field"></textarea>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <button onclick="updateTool()">Update Tool Data</button>
+    </div>
+
+    <script>
+        // Added more sample data for pagination testing
+        const sampleTools = [
+            { number: 8, type: 'VERT DRILL', direction: '5', description: '8mm Vertical Drill', notes: 'General purpose', length: '100.000', diameter: '8.000', lengthWear: '0.000', diameterWear: '0.000' },
+            { number: 18, type: 'MILL', direction: '6', description: '18mm End Mill', notes: 'Manual change', length: '80.000', diameter: '18.000', lengthWear: '0.000', diameterWear: '0.000' },
+            { number: 28, type: 'SAW', direction: '1', description: '28mm Saw X+', notes: 'Horizontal cut', length: '120.000', diameter: '28.000', lengthWear: '0.000', diameterWear: '0.000' },
+            { number: 1, type: 'VERT DRILL', direction: '5', description: '1mm Drill', notes: 'Precision', length: '75.000', diameter: '1.000', lengthWear: '0.000', diameterWear: '0.000' },
+            { number: 2, type: 'VERT DRILL', direction: '5', description: '2mm Drill', notes: 'Standard', length: '80.000', diameter: '2.000', lengthWear: '0.000', diameterWear: '0.000' },
+            { number: 3, type: 'MILL', direction: '6', description: '3mm Mill', notes: 'Fine detail', length: '85.000', diameter: '3.000', lengthWear: '0.000', diameterWear: '0.000' },
+            { number: 4, type: 'SAW', direction: '1', description: '4mm Saw', notes: 'Thin cut', length: '90.000', diameter: '4.000', lengthWear: '0.000', diameterWear: '0.000' },
+            { number: 5, type: 'HOR DRILL', direction: '2', description: '5mm Drill', notes: 'General', length: '95.000', diameter: '5.000', lengthWear: '0.000', diameterWear: '0.000' },
+            { number: 6, type: 'MILL', direction: '6', description: '6mm Mill', notes: 'Standard', length: '100.000', diameter: '6.000', lengthWear: '0.000', diameterWear: '0.000' },
+            { number: 7, type: 'SAW', direction: '3', description: '7mm Saw', notes: 'Fine', length: '105.000', diameter: '7.000', lengthWear: '0.000', diameterWear: '0.000' },
+            { number: 9, type: 'HOR DRILL', direction: '4', description: '9mm Drill', notes: 'Heavy duty', length: '110.000', diameter: '9.000', lengthWear: '0.000', diameterWear: '0.000' },
+            { number: 10, type: 'MILL', direction: '6', description: '10mm Mill', notes: 'Roughing', length: '115.000', diameter: '10.000', lengthWear: '0.000', diameterWear: '0.000' }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
+        function searchTool() {
+            const toolNum = document.getElementById('toolSearch').value;
+            const toolType = document.getElementById('searchType').value;
+            const direction = document.getElementById('searchDirection').value;
+
+            let results = sampleTools;
+
+            if (toolNum) {
+                results = results.filter(t => t.number.toString().includes(toolNum));
+            }
+
+            if (toolType) results = results.filter(t => t.type === toolType);
+            if (direction) results = results.filter(t => t.direction === direction);
+
+            currentPage = 1;
+            showResults(results);
+        }
+
+        function showResults(tools) {
+            const tbody = document.getElementById('resultsTable');
+            if (tools.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="no-results">No tools found</td></tr>`;
+                document.getElementById('currentPage').textContent = '0 / 0';
+                clearForm();
+            } else {
+                const totalPages = Math.ceil(tools.length / itemsPerPage);
+                const start = (currentPage - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+                const pageTools = tools.slice(start, end);
+
+                tbody.innerHTML = pageTools.map(tool => `
+                    <tr onclick="loadTool(${tool.number})">
+                        <td>${tool.number}</td>
+                        <td>${tool.type}</td>
+                        <td>${tool.direction}</td>
+                        <td>${tool.description}</td>
+                        <td>${tool.length}</td>
+                        <td>${tool.diameter}</td>
+                        <td>${tool.lengthWear}</td>
+                        <td>${tool.diameterWear}</td>
+                        <td>${tool.notes}</td>
+                    </tr>
+                `).join('');
+
+                document.getElementById('currentPage').textContent = `${currentPage} / ${totalPages}`;
+
+                if (tools.length === 1) {
+                    loadTool(tools[0].number);
+                }
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                searchTool();
+            }
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(getFilteredTools().length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                searchTool();
+            }
+        }
+
+        function getFilteredTools() {
+            const toolNum = document.getElementById('toolSearch').value;
+            const toolType = document.getElementById('searchType').value;
+            const direction = document.getElementById('searchDirection').value;
+
+            let results = sampleTools;
+
+            if (toolNum) {
+                results = results.filter(t => t.number.toString().includes(toolNum));
+            }
+
+            if (toolType) results = results.filter(t => t.type === toolType);
+            if (direction) results = results.filter(t => t.direction === direction);
+
+            return results;
+        }
+
+        function loadTool(toolNum) {
+            const tool = sampleTools.find(t => t.number === toolNum);
+            if (tool) {
+                document.getElementById('description').value = tool.description;
+                document.getElementById('length').value = tool.length;
+                document.getElementById('diameter').value = tool.diameter;
+                document.getElementById('lengthWear').value = tool.lengthWear;
+                document.getElementById('diameterWear').value = tool.diameterWear;
+                document.getElementById('toolType').value = tool.type;
+                document.getElementById('direction').value = tool.direction;
+                document.getElementById('notes').value = tool.notes;
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('description').value = '';
+            document.getElementById('length').value = '';
+            document.getElementById('diameter').value = '';
+            document.getElementById('lengthWear').value = '';
+            document.getElementById('diameterWear').value = '';
+            document.getElementById('toolType').value = 'DRILL';
+            document.getElementById('direction').value = '1';
+            document.getElementById('notes').value = '';
+        }
+
+        function updateTool() {
+            const data = {
+                toolNum: document.getElementById('toolSearch').value,
+                description: document.getElementById('description').value,
+                length: document.getElementById('length').value,
+                diameter: document.getElementById('diameter').value,
+                lengthWear: document.getElementById('lengthWear').value,
+                diameterWear: document.getElementById('diameterWear').value,
+                toolType: document.getElementById('toolType').value,
+                direction: document.getElementById('direction').value,
+                notes: document.getElementById('notes').value
+            };
+            console.log('Updating tool data:', data);
+        }
+
+        // Initial load of all tools
+        searchTool();
+    </script>
+</body>
+
+</html>

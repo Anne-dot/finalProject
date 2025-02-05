@@ -1,0 +1,40 @@
+ToolNumber,ToolType,ToolDirection,Diameter,Notes,in_spindle,last_change_time
+1,Router,,6,all purpose,0,2025-02-04-10:16
+2,Router,,6,all purpose,0,2025-02-04-10:16
+3,Router,,6,all purpose,0,2025-02-04-10:16
+4,Router,,6,all purpose,0,2025-02-04-10:16
+5,Router,,6,all purpose,0,2025-02-04-10:16
+6,Router,,6,all purpose,0,2025-02-04-10:16
+7,Router,,6,all purpose,0,2025-02-04-10:16
+8,Router,,6,all purpose,0,2025-02-04-10:16
+9,Router,,6,all purpose,0,2025-02-04-10:16
+10,Router,,6,all purpose,0,2025-02-04-10:16
+11,Router,,6,all purpose,1,2025-02-04-10:16
+12,Router,,6,all purpose,0,2025-02-04-10:16
+13,Router,,6,all purpose,0,2025-02-04-10:16
+14,Router,,6,all purpose,0,2025-02-04-10:16
+15,Router,,6,all purpose,0,2025-02-04-10:16
+16,Router,,6,all purpose,0,2025-02-04-10:16
+17,Router,,6,all purpose,0,2025-02-04-10:16
+18,Router,,6,all purpose,0,2025-02-04-10:16
+19,Router,,6,all purpose,0,2025-02-04-10:16
+20,Router,,6,all purpose,0,2025-02-04-10:16
+21,Saw,1.0,Horizontal cutting,,1,2025-02-04-10:16
+22,HorizontalDrill,4.0,back to front,,1,2025-02-04-10:16
+23,VerticalDrill,5.0,additional type information,,1,2025-02-04-10:16
+24,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+25,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+26,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+27,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+28,HorizontalDrill,1.0,left to right,,1,2025-02-04-10:16
+29,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+30,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+31,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+32,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+33,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+34,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+35,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+36,VerticalDrill,5.0,additional type info,,1,2025-02-04-10:16
+37,VerticalDrill,5.0,didnt work but was in macro,,1,2025-02-04-10:16
+42,HorizontalDrill,2.0,front to back drilling,,1,2025-02-04-10:16
+48,HorizontalDrill,2.0,right to left,,1,2025-02-04-10:16

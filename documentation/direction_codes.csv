@@ -1,0 +1,7 @@
+direction_code,description,axis,movement
+1,drilling x+,X,positive
+2,drilling x-,X,negative
+3,drilling y+,Y,positive
+4,drilling y-,Y,negative
+5,vertical drilling,Z,down
+6,milling,XYZ,any

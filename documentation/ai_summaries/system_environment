@@ -1,0 +1,62 @@
+4. veebriar 2025
+
+System Environment:
+
+Operating System: Windows 10 Pro (64-bit)
+Python Version: 3.6.3
+Vectric Aspire: Limited Edition (2005-2009)
+Mach3: Version to be confirmed
+System Environment:
+
+Operating System: Windows 10 Pro (64-bit)
+Python Version: 3.6.3
+Vectric Aspire: Limited Edition (2005-2009)
+Mach3: Version R3.043.022
+
+This specific Mach3 version is important for understanding potential integration approaches. The relatively mature version suggests we'll need to be careful with compatibility and file interaction methods.
+Key considerations for this version:
+
+Uses older VBScript macro system
+Likely has specific file interaction protocols
+May have limitations in direct file access
+
+Project Objective:
+
+Create a tool database management solution
+Extend tool tracking capabilities beyond tools.dat limitations
+Develop a local web application interface
+Integrate with Mach3 workflow
+
+Key Design Considerations:
+
+Preserve existing tools.dat file integrity
+Create a separate CSV-based database
+Develop a simple, local web interface
+Implement Mach3 macro to launch the interface
+
+Proposed Solution Architecture:
+
+Local web application (HTML/CSS/JavaScript)
+CSV file for extended tool database
+VBScript for updating tools.dat
+Mach3 macro to trigger the interface
+
+Next Steps:
+
+Define specific additional tool database fields
+Design the CSV database structure
+Develop the local web interface
+Create integration scripts (VBScript)
+
+Challenges to Address:
+
+Compatibility with older software versions
+Minimal external dependencies
+Simple, reliable file interactions
+
+Documentation Recommendations:
+
+Detailed system environment specifications
+Interface design and workflow
+File interaction methods
+Compatibility considerations

@@ -1,0 +1,29 @@
+03.02.2025
+2h
+Vertikaalsete puurimiste kylgliikumise piiramine
+
+
+ToolTable ei olenud lihtsasti muudetav. Hakkasin seda tegema, 
+et horisonaalne puur oleks kaks eri t66riista. 
+T22 y+ ja T42 y-
+Nyyd on vaja offsettida pikkuste j2rgi kuidagi. Safe liikumine ka kuidagi teha.
+Tooriku m66rmed G-koodist lugeda. 
+
+Example: 1=X+, 2=X-, 3=Y+, 4=Y-
+
+03.02 l6put66: puuride kylgliikumiste piiramine
+tool properties csv file tehtud t66riista tyybi ja puurimise suuna jaoks
+
+leidsin koodist 2 konflikti, millest yhe lahendasin ise 2ra ja teise osas konsulteerin Rolandiga
+Nr 37 ei t66ta. Asukoht on vale. x on 28 sama, y peab olema v2iksem
+Case 37 conflicts with Case 28's muxOut value. Both try to use position:
+
+xOff = toolSpaceX * -2
+yOff = toolSpaceY * -1
+
+But have different muxOut values:
+
+Case 28: muxOut = 7
+Case 37: muxOut = 16
+
+This needs to be resolved based on correct tool configuration.
