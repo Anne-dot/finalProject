@@ -1,18 +1,9 @@
 ' Load helper functions
-#expand "C:Mach3\macros\Mach3Mill\config/config.m1s"
+Execute "C:Mach3\macros\Mach3Mill\config\config.m1s"
+Execute "C:Mach3\macros\Mach3Mill\config\signal_control.m1s"
 
 
-DeactivateSignal(bits0)
-DeactivateSignal(bits1)
-DeactivateSignal(bits2)
-DeactivateSignal(bits3)
-
-DeactivateSignal(m1Out)
-DeactivateSignal(m2Out)
-DeactivateSignal(m3Out)
-
-
-sleep (1000)
+DeactivateAllToolSignals()
  
 tool = GetSelectedTool() '0=no tool, also used in program end
 
@@ -135,32 +126,7 @@ While IsMoving()
 Wend 
 
 
-If ((muxOut And 1) = 1) Then
-	ActivateSignal(bits0)
-End If
-If ((muxOut And 2) = 2) Then
-	ActivateSignal(bits1)
-End If
-If ((muxOut And 4) = 4) Then
-	ActivateSignal(bits2)
-End If
-If ((muxOut And 8) = 8) Then
-	ActivateSignal(bits3)
-End If
-
-If (mSel = 1) Then
-	ActivateSignal(m1Out)
-End If
-
-If (mSel = 2) Then
-	ActivateSignal(m2Out)
-End If
-
-If (mSel = 3) Then
-	ActivateSignal(m3Out)
-End If
-
-
+ActivateToolSignals(muxOut, mSel)
 
 
 SetCurrentTool( tool )             
