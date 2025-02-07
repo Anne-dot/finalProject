@@ -1,0 +1,46 @@
+' M6 Tool Change Macro
+' HAS NOT BEEN TESTED ON MACHINE YET
+
+' Debug flag
+Const DEBUG_MODE = True
+
+Const BASE_PATH = "C:\Mach3\macros\AnneMill\helper_functions\"
+
+Dim tool, xOff, yOff, muxOut, mSel
+
+' Getting constants and mappings
+#expand "C:\Mach3\macros\AnneMill\helper_functions\tool_constants.m1s"
+#expand "C:\Mach3\macros\AnneMill\helper_functions\signal_mapping.m1s"
+
+
+' Deactivate all tool signals
+#expand "C:\Mach3\macros\AnneMill\helper_functions\signal_deactivation.m1s"
+
+' Get the selected tool
+tool = GetSelectedTool()
+
+' Declare variables
+xOff = 0
+yOff = 0
+muxOut = 0
+mSel = 0
+
+' Tool selection and positioning
+#expand "C:\Mach3\macros\AnneMill\helper_functions\tool_selection.m1s"
+
+' Set tool offset
+code("G52 X" & xOff & "Y" & yOff)
+sleep(500)         
+
+' Wait for movement to complete
+While IsMoving()
+    sleep(100)         
+Wend 
+
+' Activate tool signals (you might want to create a separate file for this too)
+#expand  "C:\Mach3\macros\AnneMill\helper_functions\signal_activation.m1s"
+
+' Set current tool
+SetCurrentTool(tool) 
+Message("Tool #" & tool & " selected")            
+sleep(500)   

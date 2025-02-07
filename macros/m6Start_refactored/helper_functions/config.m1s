@@ -1,0 +1,27 @@
+' Machine Configuration File - config.m1s
+' Used in:
+'   1. M6Start.m1s
+'   2. safe_z_movement_test.m1s
+
+' Machine Safety Limits
+Const SAFE_Z_HEIGHT = 100    ' Machine coordinates (G53)
+Const MAX_X = 500           ' Maximum X travel
+Const MAX_Y = 500           ' Maximum Y travel
+Const MAX_Z = 200           ' Maximum Z travel
+
+' Tool Change Position (G53)
+Const TC_X = 0             ' Tool change X position
+Const TC_Y = 0             ' Tool change Y position
+
+' Tool Configuration
+Const MAX_TOOLS = 40       ' Total number of tools
+Const MANUAL_TOOL1_START = 1   ' First manual toolset start
+Const MANUAL_TOOL1_END = 10    ' First manual toolset end
+Const MANUAL_TOOL2_START = 11  ' Second manual toolset start
+Const MANUAL_TOOL2_END = 20    ' Second manual toolset end
+Const AUTO_TOOL_START = 21     ' Auto tool change start
+
+' Timing Constants (milliseconds)
+Const MOVEMENT_TIMEOUT = 10000  ' Movement verification timeout
+Const SPINDLE_STOP_WAIT = 5000 ' Wait time after spindle stop
+Const GENERAL_DELAY = 500      ' General operation delay
