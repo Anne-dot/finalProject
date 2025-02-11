@@ -1,0 +1,27 @@
+' Filename: tool_constants.m1s
+' Purpose: Stores tool change related constants
+' Used in: M6Start.m1s
+' Status: Development
+
+' Debug flag
+'Const DEBUG_MODE = True
+
+Message("Loading tool constants")
+
+' Configuration Constants
+Const toolSpaceX = 32
+Const toolSpaceY = 32
+
+' Magazine Offset Positions
+Const M1_OFFSET_X = 81
+Const M2_OFFSET_X = -60.9
+Const M1M2_OFFSET_Y = 206
+Const M3_OFFSET_X = -208
+Const M3_OFFSET_Y = 263
+
+If DEBUG_MODE Then
+    Message("Debug: Tool Space X: " & toolSpaceX & " M1 Offset X: " & M1_OFFSET_X)
+    Sleep(1000)
+End If
+
+Message("Tool constants loaded successfully")

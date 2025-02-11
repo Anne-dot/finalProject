@@ -1,0 +1,24 @@
+' Filename: config.m1s
+' Purpose: Machine configuration and global constants
+' Used in: All macro files
+' Status: Development
+
+' Machine Safety Limits
+Const SAFE_Z_HEIGHT = 100    ' Machine coordinates (G53)
+
+' Tool Change Position (G53)
+Const TC_X = 0             ' Tool change X position
+Const TC_Y = 0             ' Tool change Y position
+
+' Tool Configuration
+Const MAX_TOOLS = 40       ' Total number of tools
+Const MANUAL_TOOL1_START = 1   ' First manual toolset start
+Const MANUAL_TOOL1_END = 10    ' First manual toolset end
+Const MANUAL_TOOL2_START = 11  ' Second manual toolset start
+Const MANUAL_TOOL2_END = 20    ' Second manual toolset end
+Const AUTO_TOOL_START = 21     ' Auto tool change start
+
+' Timing Constants (milliseconds)
+Const MOVEMENT_TIMEOUT = 10000  ' Movement verification timeout
+Const SPINDLE_STOP_WAIT = 5000 ' Wait time after spindle stop
+Const GENERAL_DELAY = 500      ' General operation delay

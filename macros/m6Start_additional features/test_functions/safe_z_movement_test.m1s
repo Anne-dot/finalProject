@@ -1,0 +1,33 @@
+' Filename: safe_z_movement_test.m1s
+' Purpose: Tests Z-axis movement safety functionality
+' Used in: Development testing
+' Status: Development
+
+' Debug flag
+Const DEBUG_MODE = True
+
+#expand "C:\Mach3\macros\AnneMill\helper_functions\config.m1s"
+
+' Record start time (milliseconds)
+Dim startTime
+startTime = Timer() * 1000
+
+' Initiate movement
+If DEBUG_MODE Then
+    Message("Debug: Starting Z movement test")
+End If
+
+Code "G53 G0 Z" & SAFE_Z_HEIGHT
+
+' Monitor movement
+While IsMoving()
+    If ((Timer()*1000 - startTime) > MOVEMENT_TIMEOUT) Then
+        Message("Error: Z-axis movement timeout!")
+        End
+    End If
+    Sleep GENERAL_DELAY
+Wend
+
+If DEBUG_MODE Then
+    Message("Debug: Test complete: Safe height reached")
+End If

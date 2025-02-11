@@ -1,0 +1,118 @@
+' Filename: tool_selection.m1s
+' Purpose: Handles tool positioning and selection logic
+' Used in: M6Start.m1s
+' Status: Development
+
+If DEBUG_MODE Then
+    Message("Debug: Selecting tool: " & tool)
+    Sleep(1000)
+End If
+
+' Tool selection and positioning
+Select Case tool
+    Case 0
+        xOffset = 0
+        yOffset = 0
+        muxOutput = 0
+        mSelect = 0
+    Case 21 'M3
+        xOffset = M3_OFFSET_X
+        yOffset = M3_OFFSET_Y
+        muxOutput = 0
+        mSelect = 3
+    Case 22
+        xOffset = TOOL_SPACE_X * 3
+        yOffset = TOOL_SPACE_Y * -2
+        muxOutput = 1
+    Case 23
+        xOffset = TOOL_SPACE_X * 2
+        yOffset = TOOL_SPACE_Y * -3
+        muxOutput = 2
+    Case 24
+        xOffset = TOOL_SPACE_X * 2
+        yOffset = TOOL_SPACE_Y * -2
+        muxOutput = 3
+    Case 25
+        xOffset = TOOL_SPACE_X * 2
+        yOffset = TOOL_SPACE_Y * -1	
+        muxOutput = 4
+    Case 26
+        xOffset = TOOL_SPACE_X * 2
+        yOffset = TOOL_SPACE_Y * 0	
+        muxOutput = 5
+    Case 27
+        xOffset = TOOL_SPACE_X * 2
+        yOffset = TOOL_SPACE_Y * 1	
+        muxOutput = 6
+    Case 28
+        xOffset = TOOL_SPACE_X * -2
+        yOffset = TOOL_SPACE_Y * -1	
+        muxOutput = 7
+    Case 29
+        ' center tool
+        xOffset = TOOL_SPACE_X * 0
+        yOffset = TOOL_SPACE_Y * 0	
+        muxOutput = 8
+    Case 30
+        xOffset = TOOL_SPACE_X * -1
+        yOffset = TOOL_SPACE_Y * 0	
+        muxOutput = 9
+    Case 31
+        xOffset = TOOL_SPACE_X * -2
+        yOffset = TOOL_SPACE_Y * 0	
+        muxOutput = 10
+    Case 32
+        xOffset = TOOL_SPACE_X * -3
+        yOffset = TOOL_SPACE_Y * 0	
+        muxOutput = 11
+    Case 33
+        xOffset = TOOL_SPACE_X * -4
+        yOffset = TOOL_SPACE_Y * 0	
+        muxOutput = 12
+    Case 34
+        xOffset = TOOL_SPACE_X * -5
+        yOffset = TOOL_SPACE_Y * 0	
+        muxOutput = 13
+    Case 35
+        xOffset = TOOL_SPACE_X * -6
+        yOffset = TOOL_SPACE_Y * 0	
+        muxOutput = 14
+    Case 36
+        xOffset = TOOL_SPACE_X * -7
+        yOffset = TOOL_SPACE_Y * 0	
+        muxOutput = 15
+    Case 37
+        xOffset = TOOL_SPACE_X * -2
+        yOffset = TOOL_SPACE_Y * -1	
+        muxOutput = 16
+    Case 42
+        xOffset = TOOL_SPACE_X * 3
+        yOffset = TOOL_SPACE_Y * -2
+        muxOutput = 1
+    Case 48
+        xOffset = TOOL_SPACE_X * -2
+        yOffset = TOOL_SPACE_Y * -1	
+        muxOutput = 7
+    Case Else
+        muxOutput = 0
+        If (tool >= 1 And tool <= 10) Then 'M1
+            xOffset = M1_OFFSET_X
+            yOffset = M1M2_OFFSET_Y
+            mSelect = 1
+        Else
+            If (tool >= 11 And tool <= 20) Then 'M2
+                xOffset = M2_OFFSET_X
+                yOffset = M1M2_OFFSET_Y
+                mSelect = 2
+            Else
+                Message "Unknown Tool"
+                code("M0")
+            End If
+        End If
+End Select
+
+If DEBUG_MODE Then
+    Message("Debug: Tool positioning complete")
+    Message("Debug: Position - xOffset: " & xOffset & " yOffset: " & yOffset)
+    Sleep(1000)
+End If

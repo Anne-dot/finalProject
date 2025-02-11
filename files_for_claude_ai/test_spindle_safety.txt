@@ -1,0 +1,26 @@
+' Filename: test_spindle_safety.m1s
+' Purpose: Tests spindle safety functionality
+' Used in: Development testing
+' Status: Development
+
+' Debug flag for testing
+Const DEBUG_MODE = True
+
+#expand "C:\Mach3\macros\AnneMill\helper_functions\config.m1s"
+
+' Start spindle for testing
+Code "M3 S1000"  ' Start spindle at 1000 RPM
+Sleep 2000       ' Let it spin up
+
+' Test spindle safety
+Code "M5"  ' Stop spindle
+
+If DEBUG_MODE Then 
+    Message("Debug: Waiting for spindle to stop")
+End If
+
+Sleep SPINDLE_STOP_WAIT
+
+If DEBUG_MODE Then 
+    Message("Debug: Spindle safety check complete")
+End If

@@ -1,0 +1,50 @@
+' Filename: config.m1s
+' Purpose: Machine configuration and global constants
+' Used in: All macro files
+' Status: Development
+
+' Debug settings
+'Const DEBUG_MODE = True
+
+' System Paths (Full paths required by VBScript)
+Const BASE_PATH = "C:\Mach3\Macros\AnneMill\"
+Const DATA_PATH = "C:\Mach3\Macros\AnneMill\Data\"
+Const TOOL_PROPERTIES_PATH = "C:\Mach3\Macros\AnneMill\Data\tool_properties.csv"
+Const DIRECTION_CODES_PATH = "C:\Mach3\Macros\AnneMill\Data\direction_codes.csv"
+
+' Machine Configuration
+' Timing Constants (milliseconds)
+Const MOVEMENT_TIMEOUT = 10000  ' Movement verification timeout
+Const SPINDLE_STOP_WAIT = 5000 ' Wait time after spindle stop
+Const GENERAL_DELAY = 500      ' General operation delay
+
+' Safety Limits
+' SAFE_Z_HEIGHT: Machine Z coordinate (G53) where tool changes are safe to perform
+' All movements will go to this height before changing tools
+' Must be high enough to clear all fixtures and parts
+Const SAFE_Z_HEIGHT = 100    ' mm in machine coordinates
+
+' Tool Change Position (G53)
+' Position for manual tool changes
+' Machine moves here when manual change needed
+' Must be easily accessible to operator
+Const TC_X = 0     ' mm in machine coordinates
+Const TC_Y = 0     ' mm in machine coordinates
+
+' Tool Configuration
+' Tool changes follow these rules:
+' 1. Spindle M1: Tools 1-10 only
+' 2. Spindle M2: Tools 11-20 only
+' 3. Automatic change possible if:
+'    - Source tool is in correct spindle
+'    - Target tool is in correct spindle
+' 4. Manual change required (move to TC_X,TC_Y) if:
+'    - Target tool not in spindle
+'    - Required spindle empty
+'    - Data tracked in tool_properties.csv
+Const MAX_TOOLS = 40           ' Total number of tool positions
+Const MANUAL_TOOL1_START = 1   ' M1 spindle tools start
+Const MANUAL_TOOL1_END = 10    ' M1 spindle tools end
+Const MANUAL_TOOL2_START = 11  ' M2 spindle tools start
+Const MANUAL_TOOL2_END = 20    ' M2 spindle tools end
+Const AUTO_TOOL_START = 21     ' Auto tool change start

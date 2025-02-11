@@ -1,0 +1,23 @@
+' Filename: safe_z_movement.m1s
+' Purpose: Ensures safe Z-axis positioning
+' Used in: M6Start.m1s
+' Status: Development
+
+' Record start time for timeout tracking
+Dim startTime
+startTime = Timer() * 1000
+
+' Move to safe height
+If DEBUG_MODE Then Message "Moving to safe Z height"
+Code "G53 G0 Z" & SAFE_Z_HEIGHT
+
+' Verify movement with timeout
+While IsMoving()
+    If ((Timer()*1000 - startTime) > MOVEMENT_TIMEOUT) Then
+        Message "Error: Z-axis movement timeout!"
+        End
+    End If
+    Sleep GENERAL_DELAY
+Wend
+
+If DEBUG_MODE Then Message "Safe height reached"

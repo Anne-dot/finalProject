@@ -1,0 +1,30 @@
+' Filename: signal_mapping.m1s
+' Purpose: Defines output signal mapping constants
+' Used in: M6Start.m1s
+' Status: Development
+
+' Debug flag
+'Const DEBUG_MODE = True
+
+Message("Loading signal mapping constants")
+
+If DEBUG_MODE Then
+    Message("Debug: Preparing to define signal mappings")
+    Sleep(1000)
+End If
+
+' Output Signal Mapping
+Const bits0 = OUTPUT5
+Const bits1 = OUTPUT6
+Const bits2 = OUTPUT7
+Const bits3 = OUTPUT8
+Const m1Out = OUTPUT2
+Const m2Out = OUTPUT3
+Const m3Out = OUTPUT4
+
+If DEBUG_MODE Then
+    Message("Debug: Signal mappings loaded - bits0=" & bits0 & ", m1Out=" & m1Out)
+    Sleep(1000)
+End If
+
+Message("Signal mapping constants loaded successfully")

@@ -1,0 +1,17 @@
+' Filename: spindle_safety.m1s
+' Purpose: Ensures spindle is stopped before tool change
+' Used in: M6Start.m1s
+' Status: Development
+
+' Stop spindle and wait for complete stop
+Code "M5"  ' Stop spindle command
+
+If DEBUG_MODE Then 
+    Message("Debug: Waiting for spindle to stop")
+End If
+
+Sleep SPINDLE_STOP_WAIT   ' Wait time from config
+
+If DEBUG_MODE Then 
+    Message("Debug: Spindle stopped, proceeding")
+End If

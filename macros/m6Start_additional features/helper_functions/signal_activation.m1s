@@ -1,0 +1,47 @@
+' Filename: signal_activation.m1s
+' Purpose: Handles tool signal activation sequence
+' Used in: M6Start.m1s
+' Status: Development
+
+' Debug flag
+'Const DEBUG_MODE = True
+
+If DEBUG_MODE Then
+    Message("Debug: Preparing to activate tool signals")
+    Message("Debug: MuxOutput: " & muxOutput & " mSelect: " & mSelect)
+    Sleep(1000)
+End If
+
+' Activate tool signals
+If (muxOutput And 1) = 1 Then
+    ActivateSignal(bits0)
+End If
+
+If (muxOutput And 2) = 2 Then
+    ActivateSignal(bits1)
+End If
+
+If (muxOutput And 4) = 4 Then
+    ActivateSignal(bits2)
+End If
+
+If (muxOutput And 8) = 8 Then
+    ActivateSignal(bits3)
+End If
+
+If mSelect = 1 Then
+    ActivateSignal(m1Out)
+End If
+
+If mSelect = 2 Then
+    ActivateSignal(m2Out)
+End If
+
+If mSelect = 3 Then
+    ActivateSignal(m3Out)
+End If
+
+If DEBUG_MODE Then
+    Message("Debug: Tool signals activation complete")
+    Sleep(1000)
+End If

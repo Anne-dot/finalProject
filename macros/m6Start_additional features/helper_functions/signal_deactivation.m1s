@@ -1,0 +1,28 @@
+' Filename: signal_deactivation.m1s
+' Purpose: Handles tool signal deactivation sequence
+' Used in: M6Start.m1s
+' Status: Development
+
+' Debug flag
+'Const DEBUG_MODE = True
+
+If DEBUG_MODE Then
+    Message("Debug: Deactivating all tool signals")
+    Sleep(1000)
+End If
+
+' Deactivate all tool signals
+DeactivateSignal(bits0)
+DeactivateSignal(bits1)
+DeactivateSignal(bits2)
+DeactivateSignal(bits3)
+DeactivateSignal(m1Out)
+DeactivateSignal(m2Out)
+DeactivateSignal(m3Out)
+
+Sleep(1000)
+Message("All tool signals deactivated")
+
+If DEBUG_MODE Then
+    Sleep(1000)
+End If

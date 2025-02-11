@@ -1,0 +1,41 @@
+' Filename: M6Start.m1s
+' Purpose: Main tool change macro for automated tool changing
+' Used in: Main program
+' Status: Development
+
+' Debug settings
+Const DEBUG_MODE = True
+Const BASE_PATH = "C:\MACH3\MACROS\ANNEMILL\HELPER_FUNCTIONS\"
+
+' Safety procedures
+'#expand "C:\MACH3\MACROS\ANNEMILL\HELPER_FUNCTIONS\SPINDLE_SAFETY.M1S"
+'#expand "C:\MACH3\MACROS\ANNEMILL\HELPER_FUNCTIONS\SAFE_Z_MOVEMENT.M1S"
+
+' Variable declarations
+Dim selectedTool, xOffset, yOffset, muxOutput, mSelect
+selectedTool = GetSelectedTool()
+xOffset = 0
+yOffset = 0
+muxOutput = 0
+mSelect = 0
+
+' Configuration and mappings
+#expand "C:\MACH3\MACROS\ANNEMILL\HELPER_FUNCTIONS\TOOL_CONSTANTS.M1S"
+#expand "C:\MACH3\MACROS\ANNEMILL\HELPER_FUNCTIONS\SIGNAL_MAPPING.M1S"
+
+' Tool change sequence
+#expand "C:\MACH3\MACROS\ANNEMILL\HELPER_FUNCTIONS\SIGNAL_DEACTIVATION.M1S"
+#expand "C:\MACH3\MACROS\ANNEMILL\HELPER_FUNCTIONS\TOOL_SELECTION.M1S"
+
+' Position and offset settings
+Code "G52 X" & xOffset & "Y" & yOffset
+Sleep 500         
+While IsMoving()
+    Sleep 100
+Wend
+
+' Signal activation and completion
+#expand "C:\MACH3\MACROS\ANNEMILL\HELPER_FUNCTIONS\SIGNAL_ACTIVATION.M1S"
+SetCurrentTool(selectedTool) 
+Message "Tool #" & selectedTool & " selected"            
+Sleep 500

@@ -1,0 +1,16 @@
+' Filename: movement_verification.m1s
+' Purpose: Verifies machine movements with timeout safety
+' Used in: M6Start.m1s
+' Status: Development
+
+' Movement monitoring with timeout
+Dim startTime
+startTime = Timer() * 1000
+
+While IsMoving()
+    If ((Timer()*1000 - startTime) > MOVEMENT_TIMEOUT) Then
+        Message("Error: Tool positioning movement timeout!")
+        End
+    End If
+    Sleep GENERAL_DELAY
+Wend
