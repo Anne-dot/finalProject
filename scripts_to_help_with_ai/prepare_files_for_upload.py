@@ -6,22 +6,21 @@ from pathlib import Path
 current_dir = os.getcwd()
 
 # Source and output directories (using relative paths)
-source_dir = os.path.join(current_dir, '..', 'macros')
-output_dir = os.path.join(current_dir, '..', 'files_for_claude_ai')
+source_dir = os.path.join(current_dir, 'macros/m6Start_additional_features')
+output_dir = os.path.join(current_dir, 'files_for_claude_ai')
 
 def copy_files():
     try:
         # Create output directory if it doesn't exist
         Path(output_dir).mkdir(parents=True, exist_ok=True)
-        
         print(f"Source directory: {source_dir}")
         print(f"Output directory: {output_dir}")
-        
+
         # Check if source directory exists
         if not os.path.exists(source_dir):
             print(f"Error: Source directory '{source_dir}' does not exist!")
             return
-            
+
         # Walk through all directories and files
         for root, dirs, files in os.walk(source_dir):
             for file in files:
@@ -41,10 +40,8 @@ def copy_files():
                     # Copy file to new location
                     shutil.copy2(src_file, dst_file)
                     print(f"Copied: {file} -> {new_file}")
-                    
                 except Exception as e:
                     print(f"Error copying {file}: {str(e)}")
-                    
     except Exception as e:
         print(f"Main error: {str(e)}")
 
