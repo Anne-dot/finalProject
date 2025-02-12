@@ -29,10 +29,9 @@ mSelect = 0
 
 ' Position and offset settings
 Code "G52 X" & xOffset & "Y" & yOffset
-Sleep 500         
-While IsMoving()
-    Sleep 100
-Wend
+
+' Verify movement completed safely
+#expand "C:\Mach3\Macros\AnneMill\helper_functions\movement_verification.m1s"
 
 ' Signal activation and completion
 #expand "C:\MACH3\MACROS\ANNEMILL\HELPER_FUNCTIONS\SIGNAL_ACTIVATION.M1S"
